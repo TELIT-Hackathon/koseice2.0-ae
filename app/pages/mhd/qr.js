@@ -46,7 +46,7 @@ export default function QR() {
             </select>
             <button>Generovať</button>
         </form>
-        <img src={"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=localhost:3000/mhd/register?stop=" + qr} />
+        <img src={"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=http://localhost:3000/mhd/register?stop=" + qr} />
         <p>ID: {qr}, URL: mhd/register?stop={qr}</p>
     </div>
 }
