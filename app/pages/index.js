@@ -24,9 +24,7 @@ export default function Home() {
             </Head>
 
             <main>
-                <Wrapper apiKey={"AIzaSyBVF9B33_EhQ4DU8X8blnwk9XFy4g-QGVg"}>
-                    <Map/>
-                </Wrapper>
+                <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render} />
             </main>
         </div>
     )
