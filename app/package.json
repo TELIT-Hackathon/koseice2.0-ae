@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "next": "13.0.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "serverless-mysql": "^1.5.4"
+  },
+  "devDependencies": {
+    "eslint": "8.29.0",
+    "eslint-config-next": "13.0.6"
+  }
+}
