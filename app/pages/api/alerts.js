@@ -1,4 +1,4 @@
-import {getStops} from "../../database/Connector";
+import {getAlerts} from "../../database/Connector";
 
 let data = undefined;
 
@@ -11,7 +11,7 @@ export default async function Stops(req, res) {
     }
 
     if (data === undefined) {
-        data = await getStops();
+        data = await getAlerts();
     }
 
     res.status(200).json(data);
