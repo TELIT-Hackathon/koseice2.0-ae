@@ -7,20 +7,7 @@ export default function QR() {
     const ref = useRef();
 
     useEffect(() => {
-        fetch("/api/stops").then(data => data.json()).then(data => {
-            setStops(Object.entries(data).map(([k, val]) => {
-                return {
-                    id: k,
-                    ...val
-                }
-            }).sort((a, b) => {
-                if (a.name < b.name)
-                    return -1
-                if (a.name > b.name)
-                    return 1
-                return 0
-            }))
-        });
+        fetch("/api/stops").then(data => data.json()).then(data => setStops(data));
     })
 
     function submit(e) {
