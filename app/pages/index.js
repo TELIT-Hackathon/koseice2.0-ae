@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import {Status, Wrapper} from "@googlemaps/react-wrapper";
 import Map from "../components/Map";
 
-export default function Home() {
+export default function Home({local_alerts, global_alerts}) {
     const render = (status) => {
         switch (status) {
             case Status.LOADING:
@@ -11,7 +11,7 @@ export default function Home() {
             case Status.FAILURE:
                 return <h1>Error, please try again.</h1>;
             case Status.SUCCESS:
-                return <Map />;
+                return <Map alerts={local_alerts}/>;
         }
     };
 
@@ -28,4 +28,13 @@ export default function Home() {
             </main>
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const res = await fetch(`https://.../data`)
+    const data = await res.json()
+
+    // Pass data to the page via props
+    return { props: { local_alerts } }
 }
