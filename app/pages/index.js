@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {Status, Wrapper} from "@googlemaps/react-wrapper";
 import Map from "../components/Map";
+import {getAlerts} from "../database/Connector";
 
 export default function Home({local_alerts, global_alerts}) {
     const render = (status) => {
@@ -30,11 +31,15 @@ export default function Home({local_alerts, global_alerts}) {
     )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     // Fetch data from external API
-    const res = await fetch(`https://.../data`)
-    const data = await res.json()
+    let res = await getAlerts();
+    res = res.map(packet => {return {...packet}})
+    console.log(res)
 
     // Pass data to the page via props
-    return { props: { local_alerts } }
+    return {
+        props: { local_alerts: res },
+        revalidate: 360, // In seconds
+    }
 }

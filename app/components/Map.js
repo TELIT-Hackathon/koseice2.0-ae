@@ -15,7 +15,7 @@ export default function Map({center, zoom, alerts}) {
         return new window.google.maps.Marker({
             position: { lat: alert.lat, lng: alert.lng },
             icon: image_path,
-            title: `${type_names[alert.type.substring(0, 2)]} ALERT`
+            title: `${type_names[alert.type.toString().substring(0, 2)]} ALERT`
         })
     }
 
@@ -31,8 +31,8 @@ export default function Map({center, zoom, alerts}) {
         });
         directionsRenderer.setMap(map);
 
-        [{type:"111", lat: 48.7150835, lng: 21.2470718}, {type:"220", lat: 48.7, lng: 21.2}].forEach(alert => {Alert(alert).setMap(map)});
-        //alerts.forEach(alert => {Alert(alert).setMap(map)});
+        //[{type:"111", lat: 48.7150835, lng: 21.2470718}, {type:"220", lat: 48.7, lng: 21.2}].forEach(alert => {Alert(alert).setMap(map)});
+        alerts.forEach(alert => {Alert(alert).setMap(map)});
 
         //const marker = new window.google.maps.Marker({
         //    position: { lat: 48.7140835, lng: 21.2470718 },
