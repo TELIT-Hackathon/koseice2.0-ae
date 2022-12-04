@@ -55,29 +55,7 @@ export async function getStaticProps() {
             }
             i++;
         }
-        return groups;
-
-        // let filtered_alerts = alerts.slice(0, start_index+1);
-        // const self = alerts[start_index];
-        // let i = start_index + 1;
-        // while (i < alerts.length) {
-        //     const alert = alerts[i];
-        //     if (alert.type === self.type && IsProximal(alert, self)) {
-        //         // console.log(Math.abs(alert.lat - self.lat));
-        //         // if (!(Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius)) {
-        //         //     filtered_alerts.push(alert);
-        //         // }
-        //         // else {
-        //         //     i++;
-        //         // }
-        //     }
-        //     else {
-        //         filtered_alerts.push(alert);
-        //     }
-        //     i++;
-        // }
-        //
-        // return filtered_alerts;
+        return groups; 
     }
 
     let res = await getAlerts();
