@@ -38,3 +38,7 @@ export async function getAlerts() {
     await mysql.end()
     return results;
 }
+
+export async function addAlert(alert) {
+
+}

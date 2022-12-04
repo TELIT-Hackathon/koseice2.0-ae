@@ -1,9 +1,16 @@
 import {useEffect} from "react";
 import {available_severities, name_types} from "../../data/alert_data";
+import Link from "next/link";
 
 export default function Report() {
     function GetImage(type){
-        return <img src={`../alerts/${type}.svg`} />
+        return <img src={`../alerts/${type}.svg`} onClick={HandleSelect}/>
+    }
+
+    function HandleSelect(e) {
+        e.preventDefault();
+
+        console.log(e.target)
     }
 
     let position;
