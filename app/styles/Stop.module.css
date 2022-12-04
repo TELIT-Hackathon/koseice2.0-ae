@@ -1,0 +1,85 @@
+.stopTitle {
+    text-align: center;
+    padding: 0 20px;
+}
+
+.stopTitle h1 {
+    margin-bottom: 0;
+}
+
+.lineBox {
+    display: flex;
+    gap: 10px;
+    height: 50px;
+}
+
+.lineBox img {
+    margin: 5px 0;
+    height: 40px;
+    width: 40px;
+}
+
+.lineBox p {
+    font-size: 17px;
+    line-height: 50px;
+    font-weight: 500;
+    margin: 0;
+    color: black;
+}
+
+.container {
+    padding: 0 40px;
+}
+
+.lineBoxWrapper {
+    margin: 20px 0;
+}
+
+.stopButton svg {
+    height: 20px;
+    width: 20px;
+    vertical-align: baseline;
+}
+.stopButtons {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.stopButtons button {
+    background: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 10px 0;
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.active {
+    border: 1px solid green;
+}
+
+.searchButton {
+    display: grid;
+    place-items: center;
+    margin-top: 50px;
+}
+.searchButton button {
+    font-family: "Rubik", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    height: 50px;
+    width: 100%;
+    font-weight: 500;
+    font-size: 20px;
+    background: blue;
+    border: none;
+    color: white;
+}
+
+.searchButton button svg {
+    height: 20px;
+    width: 20px;
+    vertical-align: baseline;
+}

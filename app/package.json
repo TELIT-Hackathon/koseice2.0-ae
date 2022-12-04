@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@googlemaps/react-wrapper": "^1.1.35",
+    "@heroicons/react": "^2.0.13",
+    "@mui/material": "^5.10.16",
+    "@mui/styled-engine-sc": "^5.10.16",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "serverless-mysql": "^1.5.4"
+    "react-qr-scanner": "^1.0.0-alpha.11",
+    "serverless-mysql": "^1.5.4",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "eslint": "8.29.0",

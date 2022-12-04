@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="tram" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 910.63 686.88">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #222345;
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-6);
+      }
+
+      .cls-5 {
+        fill: #1b635a;
+      }
+
+      .cls-6 {
+        fill: url(#linear-gradient-5);
+      }
+
+      .cls-7 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-8 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-9 {
+        fill: url(#linear-gradient-4);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="504.5" y1="565.69" x2="910.63" y2="565.69" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5ec4c2"/>
+      <stop offset=".34" stop-color="#409e9a"/>
+      <stop offset=".78" stop-color="#1e746e"/>
+      <stop offset="1" stop-color="#12645d"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="483.11" y1="224.76" x2="853.52" y2="224.76" xlink:href="#linear-gradient"/>
+    <linearGradient id="linear-gradient-3" x1="43.32" y1="142.38" x2="566.82" y2="142.38" gradientUnits="userSpaceOnUse">
+      <stop offset=".25" stop-color="#133e44"/>
+      <stop offset=".44" stop-color="#17494b"/>
+      <stop offset=".79" stop-color="#226660"/>
+      <stop offset="1" stop-color="#2a7c70"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="3.14" y1="365.58" x2="620.3" y2="365.58" gradientUnits="userSpaceOnUse">
+      <stop offset=".27" stop-color="#6ba3fd"/>
+      <stop offset="1" stop-color="#86befd"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-5" x1="566.82" y1="365.58" x2="905.27" y2="365.58" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7fd6fe"/>
+      <stop offset="1" stop-color="#a4d6fe"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-6" x1="0" y1="567.25" x2="620.06" y2="567.25" xlink:href="#linear-gradient-3"/>
+  </defs>
+  <ellipse class="cls-3" cx="534.5" cy="639.23" rx="30" ry="47.65"/>
+  <ellipse class="cls-3" cx="474.5" cy="639.23" rx="30" ry="47.65"/>
+  <ellipse class="cls-3" cx="184.74" cy="639.23" rx="30" ry="47.65"/>
+  <ellipse class="cls-3" cx="124.74" cy="639.23" rx="30" ry="47.65"/>
+  <ellipse class="cls-3" cx="813.68" cy="639.23" rx="30" ry="47.65"/>
+  <ellipse class="cls-3" cx="753.68" cy="639.23" rx="30" ry="47.65"/>
+  <path class="cls-8" d="M505.41,527.77l-.9,133.08s376.78,6.06,376.08,5.14c19.06,1.05,30.05-26.08,30.05-26.08l-2.4-115.17v-1.8l-2.96-57.64-379.74,5.11-20.12,57.36Z"/>
+  <path class="cls-5" d="M578.47,639.63l36.47-27.18h100l133.65,.29,59.86-.29-.24,27.18h2.37s3.92,27-34.18,26.37c0,.04-329-2.9-329-2.9l31.06-23.47Z"/>
+  <path class="cls-1" d="M483.11,188.76h290.18s64.11,23.29,80.23,72h-286.7l-83.71-72Z"/>
+  <path class="cls-7" d="M483.11,188.76c.46-.22-15.32-.35-40.48-.42l86.7-89.83c16.21-16.34-10.35-30.25-10.35-30.25L400.82,4.62h77.06c9.67-.11,14.19,5.23,15.15,5.21,.65-.02,1.76,.56,2.68-.41,.91-.97,.47-2.29,.29-2.38C491.57,1.32,477.2-.2,478.35,.02h-62.21s-93.71-.04-94.06,.04c-6.35,.09-23.5,9.85-24.09,10.74-.59,.88,.82,3.47,.82,3.47,1.71,.76,3.88,.12,3.88,.12,15.76-9.06,20.94-9.65,20.94-9.65l50.94-.12,130.24,76.35-126.04,107.32c-80.05,.03-184.32,.28-229.9,.4-25.63,.07-50.78,7.69-71.7,22.5-15.94,11.28-30.45,27.39-33.78,49.56-8.12,54,523.41,0,523.41,0,0,0-27.65-69.88-83.71-72Zm22.24-96.49c5.82-5.12,12.18-.47,12.18-.47,4.76,4.47-2.74,10.35-2.74,10.35l-81.91,86.17c-11.22-.02-23.87-.03-37.49-.03h0s110.29-96.2,109.94-96.02Z"/>
+  <path class="cls-9" d="M566.82,260.76H43.41S1.76,403.35,3.17,470.41H619.43s11.98-80.47-52.61-209.65Z"/>
+  <path class="cls-6" d="M566.82,260.76s52.02,140.83,52.61,209.65l285.84-5.11s-2.8-124.06-51.75-204.54c1.3,2.12-286.7,0-286.7,0Z"/>
+  <path class="cls-4" d="M619.43,470.41H3.17c-10.07,100.28,6.52,130.57,12.51,141.91,6.31,11.96,13.38,22.68,22.91,33.03h0c10.68,11.65,25.76,18.28,41.57,18.28h59.49s228-.24,229.41,.47l81.42-2.22,50.82,1.22s79.91,.02,80,.01c36.65-3.44,38.15-33.31,38.15-33.31,0,0,1.39-160.8-.02-159.39Z"/>
+  <circle class="cls-2" cx="656.94" cy="512.06" r="19.06"/>
+  <circle class="cls-2" cx="698" cy="528.65" r="14.76"/>
+  <circle class="cls-2" cx="879.11" cy="514.33" r="19.06"/>
+  <circle class="cls-2" cx="838.06" cy="530.91" r="14.76"/>
+</svg>
