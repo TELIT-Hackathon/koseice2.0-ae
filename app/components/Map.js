@@ -1,6 +1,6 @@
 import {useEffect, useRef} from "react";
 
-export default function Map({center, zoom}) {
+export default function Map({center, zoom, vehicles}) {
     const ref = useRef();
 
     useEffect(() => {
@@ -8,32 +8,19 @@ export default function Map({center, zoom}) {
         const directionsRenderer = new window.google.maps.DirectionsRenderer();
 
         const map = new window.google.maps.Map(ref.current, {
-            center: { lat: 48.7150835, lng: 21.2470718 },
-            zoom: 15,
+            center: { lat: 48.7100835, lng: 21.2470718 },
+            zoom: 12,
             disableDefaultUI: true
         });
         directionsRenderer.setMap(map);
 
-        const marker = new window.google.maps.Marker({
-            position: { lat: 48.7140835, lng: 21.2470718 },
-            icon: "https://lh3.googleusercontent.com/ogw/AOh-ky0OqjijowLJPirZh09QMvHfZQb3geTrd4ynb1Mv=s32-c-mo",
-            title: "My MARKER"
-        })
-        marker.setMap(map);
-
-        directionsService.route({
-            origin: {
-                query: "Alejova 1, Kosice"
-            },
-            destination: {
-                query: "Univerzitna kniznica technicka univerzita Kosice"
-            },
-            travelMode: window.google.maps.TravelMode.DRIVING,
-        }).then(response => {
-            directionsRenderer.setDirections(response);
-        }).catch((e) => {
-            window.alert("Directions request failed due to " + e.message);
-        })
+        for (const vehicle of vehicles.list) {
+            new window.google.maps.Marker({
+                position: { lat: vehicle.lat, lng: vehicle.lng },
+                icon: "vehicle_icons/" + vehicle.type + ".svg",
+                title: "Vehicle " + vehicle.id
+            }).setMap(map);
+        }
     });
 
     return <div ref={ref} id="map" style={{

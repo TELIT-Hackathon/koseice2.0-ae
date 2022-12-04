@@ -1,36 +1,16 @@
 import styles from "../styles/MainMenu.module.css";
 import {useState} from "react";
 import Image from "next/image";
+import {useRouter} from "next/router";
 
-export default function MainMenu({setVehicles}) {
+export default function MainMenuForeign() {
     const [expand, setExpand] = useState(false);
+    const router = useRouter();
 
     function update(type) {
         setExpand(false)
 
-        if (type === "MHD") {
-            setVehicles({
-                type: "MHD",
-                list: []
-            })
-            return
-        }
-
-        fetch("/api/vehicles", {
-            method: "POST",
-            body: JSON.stringify({
-                type: type
-            }),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-        }).then(res => res.json()).then(data => {
-            setVehicles({
-                type: type,
-                list: data
-            })
-        })
+        router.push("/")
     }
 
     return <div className={`${styles.menuBox} ${expand && styles.openMenuBox}`}>

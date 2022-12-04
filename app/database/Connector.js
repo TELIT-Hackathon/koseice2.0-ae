@@ -36,6 +36,16 @@ export async function getStop(id) {
     return results;
 }
 
+export async function getConnection(id) {
+    if (!sanitizeNumber(id))
+        return null;
+
+    const sql = "SELECT * FROM connections WHERE id=?"
+    const results = await mysql.query(sql, [id])
+    await mysql.end()
+    return results;
+}
+
 export async function getAlerts() {
     const sql = "SELECT type,lat,lng FROM road_alerts WHERE time>?"
     const results = await mysql.query(sql, [1661212800])
@@ -51,4 +61,16 @@ export async function addRecord(stop, connection, destination) {
     await mysql.query(sql, [stop, connection, destination]);
     await mysql.end()
     return true;
+}
+
+const VEHICLE_CODES = new Set(["S", "E", "B", "M"]);
+
+export async function getVehicles(type) {
+    if (!VEHICLE_CODES.has(type))
+        return null;
+
+    const sql = "SELECT * FROM vehicles WHERE type=? OR type=?"
+    const result = await mysql.query(sql, [type, type === "B" ? "E" : type]);
+    await mysql.end()
+    return result;
 }

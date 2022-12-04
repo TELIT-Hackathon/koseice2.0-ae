@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import MainMenuForeign from "../components/MainMenuForeign";
 
 export default function QR() {
     const [stops, setStops] = useState(undefined);
@@ -33,7 +34,8 @@ export default function QR() {
             </select>
             <button>Generovať</button>
         </form>
-        <img src={"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=http://localhost:3000/mhd/register?stop=" + qr} />
-        <p>ID: {qr}, URL: mhd/register?stop={qr}</p>
+        <img src={"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=mhd-stop=" + qr} />
+        <p>ID: {qr}</p>
+        <MainMenuForeign />
     </div>
 }
