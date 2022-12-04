@@ -17,7 +17,7 @@ export default function Map({center, zoom, alerts, jams}) {
             geodesic: true,
             strokeColor: "#FF0000",
             strokeOpacity: 1.0,
-            strokeWeight: 2,
+            strokeWeight: 5,
         });
     }
 
@@ -34,22 +34,16 @@ export default function Map({center, zoom, alerts, jams}) {
                 {
                     "featureType": "landscape",
                     "stylers": [
-                        { "color": "#F0F2F5" }
+                        {
+                            "color": "#F0F2F5",
+                        }
                     ]
                 }
             ]
         });
 
         jams.forEach(jam => {
-            const jamPath = new google.maps.Polyline({
-                path: jam.points,
-                geodesic: true,
-                strokeColor: "#FF0000",
-                strokeOpacity: 1.0,
-                strokeWeight: 2,
-            });
-
-            jamPath.setMap(map);
+            Jam(jam).setMap(map);
         })
 
         directionsRenderer.setMap(map);

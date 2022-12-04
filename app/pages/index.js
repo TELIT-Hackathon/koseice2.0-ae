@@ -32,14 +32,17 @@ export default function Home({local_alerts, global_alerts, jams}) {
 }
 
 export async function getStaticProps() {
+    function IsProximal(point1, point2, radius=0.005) {
+
+        return Math.abs(point1.lat - point2.lat) < radius && Math.abs(point1.lng - point2.lng) < radius
+    }
     function RemoveCloseAlerts(alerts, start_index){
         let filtered_alerts = alerts.slice(0, start_index+1);
-        let radius = 0.005;
         const self = alerts[start_index];
         let i = start_index + 1;
         while (i < alerts.length) {
             const alert = alerts[i];
-            if (alert.type === self.type && Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius) {
+            if (alert.type === self.type && IsProximal(alert, self)) {
                 // console.log(Math.abs(alert.lat - self.lat));
                 // if (!(Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius)) {
                 //     filtered_alerts.push(alert);
@@ -57,21 +60,39 @@ export async function getStaticProps() {
         return filtered_alerts;
     }
     function GroupJams(jams) {
-        let grouped = {}
-        jams.forEach(jam => {
-            if (!grouped.hasOwnProperty(jam.street)) {
-                grouped[jam.street] = {type: jam.type, points:[]}
-            }
-            grouped[jam.street].points.push({lat: jam.lat, lng: jam.lng})
-        })
+        let lines = [];
 
-        let filteredGrouped = []
-        for (const [key, value] of Object.entries(grouped)) {
-            if (value.points.length > 1) {
-                filteredGrouped.push(value);
+        let i = 0;
+        while (i < jams.length) {
+            let origin = jams[i];
+            let k = i + 1;
+
+            while ( k < jams.length) {
+                const target = jams[k];
+                if (target.street === origin.street && IsProximal(target, origin, 0.0035)) {
+                    lines.push({type: origin.type, points:[origin, target]});
+                }
+                k++;
             }
+            i++;
         }
-        return filteredGrouped;
+        return lines;
+
+        // let grouped = {}
+        // jams.forEach(jam => {
+        //     if (!grouped.hasOwnProperty(jam.street)) {
+        //         grouped[jam.street] = {type: jam.type, points:[]}
+        //     }
+        //     grouped[jam.street].points.push({lat: jam.lat, lng: jam.lng})
+        // })
+        //
+        // let filteredGrouped = []
+        // for (const [key, value] of Object.entries(grouped)) {
+        //     if (value.points.length > 1) {
+        //         filteredGrouped.push(value);
+        //     }
+        // }
+        // return filteredGrouped;
     }
 
     let res = await getAlerts();
