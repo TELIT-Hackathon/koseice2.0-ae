@@ -32,14 +32,62 @@ export default function Home({local_alerts, global_alerts}) {
 }
 
 export async function getStaticProps() {
-    // Fetch data from external API
+    function RemoveCloseAlerts(alerts, start_index){
+        let filtered_alerts = alerts.slice(0, start_index+1);
+        let radius = 0.005;
+        const self = alerts[start_index];
+        let i = start_index + 1;
+        while (i < alerts.length) {
+            const alert = alerts[i];
+            if (alert.type === self.type && Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius) {
+                // console.log(Math.abs(alert.lat - self.lat));
+                // if (!(Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius)) {
+                //     filtered_alerts.push(alert);
+                // }
+                // else {
+                //     i++;
+                // }
+            }
+            else {
+                filtered_alerts.push(alert);
+            }
+            i++;
+        }
+
+        return filtered_alerts;
+    }
+
     let res = await getAlerts();
-    res = res.map(packet => {return {...packet}})
-    console.log(res)
+    res = res.map(packet => {return {...packet}});
+
+    let local_alerts = [];
+    let global_alerts = [];
+
+    res.forEach(alert => {
+        if (alert.type.toString()[0] === "1") {
+            local_alerts.push(alert);
+        }
+        else {
+            if (!global_alerts.includes(alert.type)) {
+                global_alerts.push(alert.type);
+            }
+        }
+    })
+
+    let i = 0;
+    // console.log(local_alerts.length);
+    while (i < local_alerts.length) {
+        // console.log(local_alerts.length);
+        local_alerts = RemoveCloseAlerts(local_alerts, i);
+        i++;
+    }
+    // console.log(local_alerts.length);
+
+    // console.log(res)
 
     // Pass data to the page via props
     return {
-        props: { local_alerts: res },
+        props: { local_alerts: local_alerts },
         revalidate: 360, // In seconds
     }
 }
