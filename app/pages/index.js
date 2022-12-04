@@ -9,7 +9,7 @@ import {useState} from "react";
 import MhdScanner from "../components/MhdScanner";
 import LoadingScreen from "../components/LoadingScreen";
 
-export default function Home({local_alerts, global_alerts}) {
+export default function Home({local_alerts, global_alerts, jams}) {
     const [vehicles, setVehicles] = useState({
         type: "",
         list: []
@@ -22,7 +22,7 @@ export default function Home({local_alerts, global_alerts}) {
             case Status.FAILURE:
                 return <h1>Error, please try again.</h1>;
             case Status.SUCCESS:
-                return <Map vehicles={vehicles} alerts={local_alerts} />;
+                return <Map vehicles={vehicles} alerts={local_alerts} jams={jams}/>;
         }
     };
 
@@ -38,7 +38,7 @@ export default function Home({local_alerts, global_alerts}) {
             </Head>
 
             <main>
-                <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render} />
+                <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render} libraries={["visualization"]} />
                 {vehicles.type === "MHD" && <MhdScanner />}
             </main>
 
@@ -79,10 +79,14 @@ export async function getStaticProps() {
 
     let local_alerts = [];
     let global_alerts = [];
+    let jams = []
 
     res.forEach(alert => {
         if (alert.type.toString()[0] === "1") {
             local_alerts.push(alert);
+            if (alert.type.toString()[1] === "1") {
+                jams.push({lat: alert.lat, lng: alert.lng});
+            }
         }
         else {
             if (!global_alerts.includes(alert.type)) {
@@ -94,7 +98,7 @@ export async function getStaticProps() {
     local_alerts = GroupCloseAlerts(local_alerts);
 
     return {
-        props: { local_alerts: local_alerts, global_alerts: global_alerts},
+        props: { local_alerts: local_alerts, global_alerts: global_alerts, jams: jams},
         revalidate: 360, // In seconds
     }
 }

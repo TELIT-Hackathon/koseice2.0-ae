@@ -7,12 +7,13 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
     const ref = useRef(), destinationRef = useRef();
     function Alert(alert) {
         const scale = Math.sqrt(Math.sqrt(alert.occurrences))
+        const size = 25*scale;
         const image_path = `alerts/${alert.type}.svg`;
         const icon = {
             url: image_path, // url
-            scaledSize: new google.maps.Size(25*scale, 25*scale), // scaled size
+            scaledSize: new google.maps.Size(size, size), // scaled size
             origin: new google.maps.Point(0,0), // origin
-            anchor: new google.maps.Point(0, 0) // anchor
+            anchor: new google.maps.Point(size/2, size/2) // anchor
         };
         let include_s = ""
         if (alert.occurrences != 1) {
@@ -49,6 +50,23 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
             ],
             disableDefaultUI: true
         });
+
+        const heatmap_data = jams.map(jam => {
+            return {location: new google.maps.LatLng(jam.lat, jam.lng), weight: 5};
+        })
+        var heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatmap_data,
+            radius: 19,
+            opacity: 0.65,
+            gradient: [
+                'rgba(0, 255, 255, 0)',
+                "#F07D02",
+                "#E60000",
+                "#9E1313",
+            ]
+        });
+
+        heatmap.setMap(map);
 
         directionsRenderer.setMap(map);
 
