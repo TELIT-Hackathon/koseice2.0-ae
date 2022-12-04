@@ -1,6 +1,6 @@
-import {getStop} from "../../database/Connector";
+import {getVehicles} from "../../database/Connector";
 
-export default async function Stop(req, res) {
+export default async function Vehicles(req, res) {
     if (req.method !== "POST") {
         res.status(405).json({
             message: "This endpoint only accepts POST requests."
@@ -8,14 +8,14 @@ export default async function Stop(req, res) {
         return;
     }
 
-    const stop = await getStop(req.body.stop)
+    const vehicles = await getVehicles(req.body.type)
 
-    if (stop === null) {
+    if (vehicles === null) {
         res.status(400).json({
             message: "Bad request."
         });
         return;
     }
 
-    res.status(200).json(stop.length > 0 ? stop[0] : {});
+    res.status(200).json(vehicles);
 }

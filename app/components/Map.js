@@ -1,7 +1,10 @@
 import {useEffect, useRef} from "react";
+import styles from "../styles/Home.module.css";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {type_names} from "../data/alert_data";
 
-export default function Map({center, zoom, alerts, jams}) {
+export default function Map({center, zoom, vehicles, alerts, jams}) {
+    const ref = useRef(), destinationRef = useRef();
     function Alert(alert) {
         const scale = Math.sqrt(Math.sqrt(alert.occurrences))
         const image_path = `alerts/${alert.type}.svg`;
@@ -23,9 +26,11 @@ export default function Map({center, zoom, alerts, jams}) {
         })
     }
 
-    const ref = useRef();
-
     useEffect(() => {
+        update();
+    });
+
+    function update() {
         const directionsService = new window.google.maps.DirectionsService();
         const directionsRenderer = new window.google.maps.DirectionsRenderer();
 
@@ -41,38 +46,47 @@ export default function Map({center, zoom, alerts, jams}) {
                         }
                     ]
                 }
-            ]
+            ],
+            disableDefaultUI: true
         });
 
         directionsRenderer.setMap(map);
 
-        //[{type:"111", lat: 48.7150835, lng: 21.2470718}, {type:"220", lat: 48.7, lng: 21.2}].forEach(alert => {Alert(alert).setMap(map)});
         alerts.forEach(alert => {Alert(alert).setMap(map)});
 
-        //const marker = new window.google.maps.Marker({
-        //    position: { lat: 48.7140835, lng: 21.2470718 },
-        //    icon: "https://lh3.googleusercontent.com/ogw/AOh-ky0OqjijowLJPirZh09QMvHfZQb3geTrd4ynb1Mv=s32-c-mo",
-        //    title: "My MARKER"
-        //})
-        //marker.setMap(map);
+        for (const vehicle of vehicles.list) {
+            new window.google.maps.Marker({
+                position: { lat: vehicle.lat, lng: vehicle.lng },
+                icon: "vehicle_icons/" + vehicle.type + ".svg",
+                title: "Vehicle " + vehicle.id
+            }).setMap(map);
+        }
 
         directionsService.route({
             origin: {
-                query: "Alejova 1, Kosice"
+                query: "Univerzitna kniznica technicka univerzita Kosice"
             },
             destination: {
-                query: "Univerzitna kniznica technicka univerzita Kosice"
+                query: destinationRef.current.value
             },
             travelMode: window.google.maps.TravelMode.DRIVING,
         }).then(response => {
             directionsRenderer.setDirections(response);
         }).catch((e) => {
-            window.alert("Directions request failed due to " + e.message);
-        })
-    });
 
-    return <div ref={ref} id="map" style={{
-        height: "100vh",
-        width: "100%"
-    }} />;
+        })
+    }
+
+    return <div>
+        <header className={styles.searchBox}>
+            <div className={styles.searchInner}>
+                <input type={"text"} ref={destinationRef} className={styles.searchBar} />
+                <MagnifyingGlassIcon className={styles.searchIcon} onClick={update} />
+            </div>
+        </header>
+        <div ref={ref} id="map" style={{
+            height: "100vh",
+            width: "100%"
+        }} />
+    </div>
 }
