@@ -7,7 +7,7 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
     const ref = useRef(), destinationRef = useRef();
     function Alert(alert) {
         const scale = Math.sqrt(Math.sqrt(alert.occurrences))
-        const size = 25*scale;
+        const size = scale < 1.75 ? 25*scale : 25*1.75;
         const image_path = `alerts/${alert.type}.svg`;
         const icon = {
             url: image_path, // url
@@ -38,16 +38,16 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
         const map = new window.google.maps.Map(ref.current, {
             center: { lat: 48.7150835, lng: 21.2470718 },
             zoom: 15,
-            styles: [
-                {
-                    "featureType": "landscape",
-                    "stylers": [
-                        {
-                            "color": "#F0F2F5",
-                        }
-                    ]
-                }
-            ],
+            // styles: [
+            //     {
+            //         "featureType": "landscape",
+            //         "stylers": [
+            //             {
+            //                 "color": "#F0F2F5",
+            //             }
+            //         ]
+            //     }
+            // ],
             disableDefaultUI: true
         });
 

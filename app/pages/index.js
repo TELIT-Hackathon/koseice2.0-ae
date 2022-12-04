@@ -76,19 +76,25 @@ export async function getStaticProps() {
         return groups;
     }
 
-    let res = await getAlerts();
+    let res = await getAlerts(86400);
     res = res.map(packet => {return {...packet}});
 
     let local_alerts = [];
     let global_alerts = [];
+
+    let week_data = await getAlerts(86400*7);
+    week_data = week_data.map(packet => {return {...packet}});
     let jams = []
+
+    week_data.forEach((alert => {
+        if (alert.type.toString().substring(0, 2) === "11") {
+            jams.push({lat: alert.lat, lng: alert.lng});
+        }
+    }))
 
     res.forEach(alert => {
         if (alert.type.toString()[0] === "1") {
             local_alerts.push(alert);
-            if (alert.type.toString()[1] === "1") {
-                jams.push({lat: alert.lat, lng: alert.lng});
-            }
         }
         else {
             if (!global_alerts.includes(alert.type)) {
