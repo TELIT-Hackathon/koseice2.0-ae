@@ -8,7 +8,7 @@ import {useState} from "react";
 import MhdScanner from "../components/MhdScanner";
 import LoadingScreen from "../components/LoadingScreen";
 
-export default function Home() {
+export default function Home({local_alerts, global_alerts}) {
     const [vehicles, setVehicles] = useState({
         type: "",
         list: []
@@ -21,7 +21,7 @@ export default function Home() {
             case Status.FAILURE:
                 return <h1>Error, please try again.</h1>;
             case Status.SUCCESS:
-                return <Map vehicles={vehicles} />;
+                return <Map vehicles={vehicles} alerts={local_alerts} />;
         }
     };
 
@@ -44,4 +44,13 @@ export default function Home() {
             <MainMenu setVehicles={setVehicles} />
         </div>
     )
+}
+
+export async function getServerSideProps() {
+    // Fetch data from external API
+    const res = await fetch(`https://.../data`)
+    const data = await res.json()
+
+    // Pass data to the page via props
+    return { props: { local_alerts } }
 }

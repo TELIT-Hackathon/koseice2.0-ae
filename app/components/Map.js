@@ -1,9 +1,28 @@
 import {useEffect, useRef} from "react";
 import styles from "../styles/Home.module.css";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {type_names} from "../data/alert_data";
 
-export default function Map({center, zoom, vehicles}) {
+export default function Map({center, zoom, vehicles, alerts}) {
     const ref = useRef(), destinationRef = useRef();
+    function Alert(alert) {
+        let image_path;
+        console.log(alert.type.toString()[0]);
+        if (alert.type.toString()[0] === "2"){
+            image_path = `alerts/${alert.type}.svg`;
+        }
+        else{
+            image_path = "alerts/place_holder.svg";
+        }
+
+        return new window.google.maps.Marker({
+            position: { lat: alert.lat, lng: alert.lng },
+            icon: image_path,
+            title: `${type_names[alert.type.substring(0, 2)]} ALERT`
+        })
+    }
+
+    const ref = useRef();
 
     useEffect(() => {
         update();
