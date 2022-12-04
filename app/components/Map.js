@@ -56,13 +56,13 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
         })
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data: heatmap_data,
-            radius: 19,
+            radius: 25,
             opacity: 0.65,
             gradient: [
-                'rgba(0, 255, 255, 0)',
+                'rgba(255, 255, 255, 0)',
+                "#efaf08",
                 "#F07D02",
                 "#E60000",
-                "#9E1313",
             ]
         });
 
