@@ -5,6 +5,7 @@
 .center {
     display: grid;
     place-items: center;
+    text-align: center;
 }
 
 .centerText {
@@ -19,4 +20,11 @@
     border: 1px solid grey;
     padding: 10px;
     border-radius: 10px;
+}
+
+.alertMenu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-around;
 }

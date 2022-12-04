@@ -8,6 +8,7 @@ import MainMenu from "../components/MainMenu";
 import {useState} from "react";
 import MhdScanner from "../components/MhdScanner";
 import LoadingScreen from "../components/LoadingScreen";
+import AlertMenu from "../components/AlertMenu";
 
 export default function Home({local_alerts, global_alerts}) {
     const [vehicles, setVehicles] = useState({
@@ -43,6 +44,7 @@ export default function Home({local_alerts, global_alerts}) {
             </main>
 
             <MainMenu setVehicles={setVehicles} />
+            <AlertMenu />
         </div>
     )
 }
