@@ -9,6 +9,7 @@ import {useState} from "react";
 import MhdScanner from "../components/MhdScanner";
 import LoadingScreen from "../components/LoadingScreen";
 import AlertMenu from "../components/AlertMenu";
+import Image from "next/image";
 
 export default function Home({local_alerts, global_alerts, jams}) {
     const [vehicles, setVehicles] = useState({
@@ -45,6 +46,9 @@ export default function Home({local_alerts, global_alerts, jams}) {
 
             <MainMenu setVehicles={setVehicles} />
             <AlertMenu />
+            <div className={styles.alertContainer}>
+                {global_alerts.map(id => <div key={id}><Image src={"/alerts/" + id + ".svg"} alt={"Weather icon"} height={60} width={60} /></div>)}
+            </div>
         </div>
     )
 }
