@@ -6,10 +6,6 @@ import Link from "next/link";
 export default function AlertMenu() {
     const [expand, setExpand] = useState(false);
 
-    function update(type) {
-        setExpand(false)
-    }
-
     return <Fragment>
         <div className={styles.reportButton} onClick={() => setExpand(true)}>
             <Image src={"/report_buttons/report.png"} alt={"Report button"} height={76} width={76} />
@@ -26,24 +22,24 @@ export default function AlertMenu() {
                     <div className={styles.smallButton}>
                         <Link href={"/report?id=11"}><Image src={"/report_buttons/trafficjam.png"} height={60} width={175} alt={"Traffic jam button"} /></Link>
                     </div>
-                    <div className={styles.smallButton} onClick={() => update("14")}>
-                        <Image src={"/report_buttons/accident.png"} height={60} width={175} alt={"Accident button"} />
+                    <div className={styles.smallButton}>
+                        <Link href={"/report?id=14"}><Image src={"/report_buttons/accident.png"} height={60} width={175} alt={"Accident button"} /></Link>
                     </div>
                 </div>
                 <div className={styles.buttonRow}>
-                    <div className={styles.smallButton} onClick={() => update("13")}>
-                        <Image src={"/report_buttons/hazard.png"} height={60} width={175} alt={"Hazard button"} />
+                    <div className={styles.smallButton}>
+                        <Link href={"/report?id=13"}><Image src={"/report_buttons/hazard.png"} height={60} width={175} alt={"Hazard button"} /></Link>
                     </div>
-                    <div className={styles.smallButton} onClick={() => update("12")}>
-                        <Image src={"/report_buttons/roadwork.png"} height={60} width={175} alt={"Roadwork button"} />
+                    <div className={styles.smallButton}>
+                        <Link href={"/report?id=12"}><Image src={"/report_buttons/roadwork.png"} height={60} width={175} alt={"Roadwork button"} /></Link>
                     </div>
                 </div>
                 <div className={styles.buttonRow}>
-                    <div className={styles.smallButton} onClick={() => update("15")}>
-                        <Image src={"/report_buttons/closedroad.png"} height={60} width={175} alt={"Closed road button"} />
+                    <div className={styles.smallButton}>
+                        <Link href={"/report?id=15"}><Image src={"/report_buttons/closedroad.png"} height={60} width={175} alt={"Closed road button"} /></Link>
                     </div>
-                    <div className={styles.smallButton} onClick={() => update("16")}>
-                        <Image src={"/report_buttons/weather.png"} height={60} width={175} alt={"Weather button"} />
+                    <div className={styles.smallButton}>
+                        <Link href={"/report?id=16"}><Image src={"/report_buttons/weather.png"} height={60} width={175} alt={"Weather button"} /></Link>
                     </div>
                 </div>
             </div>

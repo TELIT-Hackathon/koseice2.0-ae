@@ -58,7 +58,7 @@ export default function Report() {
             <div className={styles.center}>
                 <h1>Thank you for helping us make Košice a safer place.</h1>
             </div>
-            <MainMenuForeign />
+            <MainMenuForeign force={true} />
         </div>
     }
 
