@@ -64,6 +64,13 @@ export async function getConnection(id) {
     return results;
 }
 
+export async function getReport() {
+    const sql = "SELECT * FROM reports ORDER BY time DESC LIMIT 1"
+    const results = await mysql.query(sql)
+    await mysql.end()
+    return results[0];
+}
+
 export async function getAlerts(range= 86400) {
     const sql = "SELECT type,lat,lng,street FROM road_alerts WHERE time>?"
     const results = await mysql.query(sql, [1661212800+86400-range])

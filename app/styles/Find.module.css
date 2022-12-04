@@ -2,6 +2,10 @@
     padding: 40px;
 }
 
+.table {
+
+}
+
 .center {
     display: grid;
     place-items: center;
