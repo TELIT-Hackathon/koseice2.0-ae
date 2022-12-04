@@ -71,8 +71,10 @@ export async function getAlerts() {
     return results;
 }
 
-export async function addAlert(alert) {
-
+export async function addAlert(type, lat, lng) {
+    const sql = "INSERT INTO road_alerts(time,type,lat,lng) VALUES(?,?,?,?)"
+    await mysql.query(sql, [Math.round(new Date().getTime()/1000), type, lat, lng])
+    await mysql.end()
 }
 
 export async function addRecord(stop, connection, destination) {
