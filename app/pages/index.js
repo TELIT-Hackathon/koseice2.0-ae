@@ -4,7 +4,7 @@ import {Status, Wrapper} from "@googlemaps/react-wrapper";
 import Map from "../components/Map";
 import {getAlerts} from "../database/Connector";
 
-export default function Home({local_alerts, global_alerts, jams}) {
+export default function Home({local_alerts, global_alerts}) {
     const render = (status) => {
         switch (status) {
             case Status.LOADING:
@@ -12,7 +12,7 @@ export default function Home({local_alerts, global_alerts, jams}) {
             case Status.FAILURE:
                 return <h1>Error, please try again.</h1>;
             case Status.SUCCESS:
-                return <Map alerts={local_alerts} jams={jams}/>;
+                return <Map alerts={local_alerts}/>;
         }
     };
 
@@ -36,80 +36,59 @@ export async function getStaticProps() {
 
         return Math.abs(point1.lat - point2.lat) < radius && Math.abs(point1.lng - point2.lng) < radius
     }
-    function RemoveCloseAlerts(alerts, start_index){
-        let filtered_alerts = alerts.slice(0, start_index+1);
-        const self = alerts[start_index];
-        let i = start_index + 1;
-        while (i < alerts.length) {
-            const alert = alerts[i];
-            if (alert.type === self.type && IsProximal(alert, self)) {
-                // console.log(Math.abs(alert.lat - self.lat));
-                // if (!(Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius)) {
-                //     filtered_alerts.push(alert);
-                // }
-                // else {
-                //     i++;
-                // }
-            }
-            else {
-                filtered_alerts.push(alert);
-            }
-            i++;
-        }
-
-        return filtered_alerts;
-    }
-    function GroupJams(jams) {
-        let lines = [];
-
+    function GroupCloseAlerts(alerts){
+        const groups = [];
         let i = 0;
-        while (i < jams.length) {
-            let origin = jams[i];
-            let k = i + 1;
-
-            while ( k < jams.length) {
-                const target = jams[k];
-                if (target.street === origin.street && IsProximal(target, origin, 0.0035)) {
-                    lines.push({type: origin.type, points:[origin, target]});
+        while (i < alerts.length) {
+            const current = alerts[i];
+            groups.push({type: current.type, position: {lat: current.lat, lng: current.lng}, occurrences: 1})
+            let j = i + 1;
+            while (j < alerts.length) {
+                const target = alerts[j];
+                if (target.type.toString().substring(0, 2) === current.type.toString().substring(0, 2) && IsProximal(target, current)) {
+                    groups[i].occurrences++;
+                    alerts.splice(j, 1)
                 }
-                k++;
+                else {
+                    j++;
+                }
             }
             i++;
         }
-        return lines;
+        return groups;
 
-        // let grouped = {}
-        // jams.forEach(jam => {
-        //     if (!grouped.hasOwnProperty(jam.street)) {
-        //         grouped[jam.street] = {type: jam.type, points:[]}
+        // let filtered_alerts = alerts.slice(0, start_index+1);
+        // const self = alerts[start_index];
+        // let i = start_index + 1;
+        // while (i < alerts.length) {
+        //     const alert = alerts[i];
+        //     if (alert.type === self.type && IsProximal(alert, self)) {
+        //         // console.log(Math.abs(alert.lat - self.lat));
+        //         // if (!(Math.abs(alert.lat - self.lat) < radius && Math.abs(alert.lng - self.lng) < radius)) {
+        //         //     filtered_alerts.push(alert);
+        //         // }
+        //         // else {
+        //         //     i++;
+        //         // }
         //     }
-        //     grouped[jam.street].points.push({lat: jam.lat, lng: jam.lng})
-        // })
-        //
-        // let filteredGrouped = []
-        // for (const [key, value] of Object.entries(grouped)) {
-        //     if (value.points.length > 1) {
-        //         filteredGrouped.push(value);
+        //     else {
+        //         filtered_alerts.push(alert);
         //     }
+        //     i++;
         // }
-        // return filteredGrouped;
+        //
+        // return filtered_alerts;
     }
 
     let res = await getAlerts();
     res = res.map(packet => {return {...packet}});
 
     let local_alerts = [];
-    let jams = [];
     let global_alerts = [];
 
     res.forEach(alert => {
         if (alert.type.toString()[0] === "1") {
-            if (alert.type.toString()[1] === "1") {
-                jams.push(alert)
-            }
-            else {
-                local_alerts.push(alert);
-            }
+            local_alerts.push(alert);
         }
         else {
             if (!global_alerts.includes(alert.type)) {
@@ -118,23 +97,10 @@ export async function getStaticProps() {
         }
     })
 
-    let i = 0;
-    // console.log(local_alerts.length);
-    while (i < local_alerts.length) {
-        // console.log(local_alerts.length);
-        local_alerts = RemoveCloseAlerts(local_alerts, i);
-        i++;
-    }
+    local_alerts = GroupCloseAlerts(local_alerts);
 
-    jams = GroupJams(jams);
-    console.log(jams);
-    // console.log(local_alerts.length);
-
-    // console.log(res)
-
-    // Pass data to the page via props
     return {
-        props: { local_alerts: local_alerts, global_alerts: global_alerts, jams: jams },
+        props: { local_alerts: local_alerts, global_alerts: global_alerts},
         revalidate: 360, // In seconds
     }
 }

@@ -3,22 +3,24 @@ import {type_names} from "../data/alert_data";
 
 export default function Map({center, zoom, alerts, jams}) {
     function Alert(alert) {
+        const scale = Math.sqrt(Math.sqrt(alert.occurrences))
         const image_path = `alerts/${alert.type}.svg`;
+        const icon = {
+            url: image_path, // url
+            scaledSize: new google.maps.Size(25*scale, 25*scale), // scaled size
+            origin: new google.maps.Point(0,0), // origin
+            anchor: new google.maps.Point(0, 0) // anchor
+        };
+        let include_s = ""
+        if (alert.occurrences != 1) {
+            include_s = "s"
+        }
 
         return new window.google.maps.Marker({
-            position: { lat: alert.lat, lng: alert.lng },
-            icon: image_path,
-            title: `${type_names[alert.type.toString().substring(0, 2)]} ALERT`
+            position: alert.position,
+            icon: icon,
+            title: `${type_names[alert.type.toString().substring(0, 2)]} | ${alert.occurrences} report${include_s}`
         })
-    }
-    function Jam(jam) {
-        return new google.maps.Polyline({
-            path: jam.points,
-            geodesic: true,
-            strokeColor: "#FF0000",
-            strokeOpacity: 1.0,
-            strokeWeight: 5,
-        });
     }
 
     const ref = useRef();
@@ -41,10 +43,6 @@ export default function Map({center, zoom, alerts, jams}) {
                 }
             ]
         });
-
-        jams.forEach(jam => {
-            Jam(jam).setMap(map);
-        })
 
         directionsRenderer.setMap(map);
 
