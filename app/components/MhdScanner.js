@@ -2,7 +2,7 @@ import QrReader from "react-qr-scanner";
 import styles from "../styles/MhdSection.module.css"
 import {useRouter} from "next/router";
 
-export default function MhdScanner() {
+export default function MhdScanner({ setVehicles }) {
     const router = useRouter();
 
     function handleScan(data){
@@ -16,7 +16,10 @@ export default function MhdScanner() {
         console.error(err)
     }
 
-    return <main className={styles.container}>
+    return <main className={styles.container} onClick={() => setVehicles({
+        type: "",
+        list: []
+    })}>
         <div className={styles.inner}>
             <QrReader onError={handleError} onScan={handleScan} />
             <p>Use your camera to scan the QR code at your current destination to see where you can get</p>

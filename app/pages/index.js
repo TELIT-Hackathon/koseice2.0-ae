@@ -41,7 +41,7 @@ export default function Home({local_alerts, global_alerts, jams}) {
 
             <main>
                 <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render} libraries={["visualization"]} />
-                {vehicles.type === "MHD" && <MhdScanner />}
+                {vehicles.type === "MHD" && <MhdScanner setVehicles={setVehicles} />}
             </main>
 
             <MainMenu setVehicles={setVehicles} />
