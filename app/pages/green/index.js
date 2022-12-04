@@ -10,21 +10,23 @@ export default function Page() {
             <h1>Green Page</h1>
         </div>
 
-        <div>
+        <div className={styles.center}>
             <div>
-                <Link href={"/green/ebike"}>Ebike</Link>
-            </div>
+                <div>
+                    <Link href={"/green/ebike"}><Image src={"/menu_btns/btnBike.png"} alt={"Image"} height={60} width={175} /></Link>
+                </div>
 
-            <div>
-                <Link href={"/green/emoped"}>Emoped</Link>
-            </div>
+                <div>
+                    <Link href={"/green/emoped"}><Image src={"/menu_btns/btnMoped.png"} alt={"Image"} height={60} width={175} /></Link>
+                </div>
 
-            <div>
-                <Link href={"/green/escooter"}>Escooter</Link>
-            </div>
+                <div>
+                    <Link href={"/green/escooter"}><Image src={"/menu_btns/btnScooter.png"} alt={"Image"} height={60} width={175} /></Link>
+                </div>
 
-            <div>
-                <Link href={"/green/mhd"}>MHD</Link>
+                <div>
+                    <Link href={"/green/mhd"}><Image src={"/greenslides/mhd_btn.png"} alt={"Image"} height={60} width={175} /></Link>
+                </div>
             </div>
 
         </div>
