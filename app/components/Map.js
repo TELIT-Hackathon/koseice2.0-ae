@@ -1,22 +1,24 @@
 import {useEffect, useRef} from "react";
 import {type_names} from "../data/alert_data";
 
-export default function Map({center, zoom, alerts}) {
+export default function Map({center, zoom, alerts, jams}) {
     function Alert(alert) {
-        let image_path;
-        console.log(alert.type.toString()[0]);
-        if (alert.type.toString()[0] === "2"){
-            image_path = `alerts/${alert.type}.svg`;
-        }
-        else{
-            image_path = "alerts/place_holder.svg";
-        }
+        const image_path = `alerts/${alert.type}.svg`;
 
         return new window.google.maps.Marker({
             position: { lat: alert.lat, lng: alert.lng },
             icon: image_path,
             title: `${type_names[alert.type.toString().substring(0, 2)]} ALERT`
         })
+    }
+    function Jam(jam) {
+        return new google.maps.Polyline({
+            path: jam.points,
+            geodesic: true,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2,
+        });
     }
 
     const ref = useRef();
@@ -27,8 +29,29 @@ export default function Map({center, zoom, alerts}) {
 
         const map = new window.google.maps.Map(ref.current, {
             center: { lat: 48.7150835, lng: 21.2470718 },
-            zoom: 15
+            zoom: 15,
+            styles: [
+                {
+                    "featureType": "landscape",
+                    "stylers": [
+                        { "color": "#F0F2F5" }
+                    ]
+                }
+            ]
         });
+
+        jams.forEach(jam => {
+            const jamPath = new google.maps.Polyline({
+                path: jam.points,
+                geodesic: true,
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+            });
+
+            jamPath.setMap(map);
+        })
+
         directionsRenderer.setMap(map);
 
         //[{type:"111", lat: 48.7150835, lng: 21.2470718}, {type:"220", lat: 48.7, lng: 21.2}].forEach(alert => {Alert(alert).setMap(map)});

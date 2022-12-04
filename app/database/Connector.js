@@ -33,7 +33,7 @@ export async function getStop(id) {
 }
 
 export async function getAlerts() {
-    const sql = "SELECT type,lat,lng FROM road_alerts WHERE time>?"
+    const sql = "SELECT type,lat,lng,street FROM road_alerts WHERE time>?"
     const results = await mysql.query(sql, [1661212800])
     await mysql.end()
     return results;

@@ -4,7 +4,7 @@ import {Status, Wrapper} from "@googlemaps/react-wrapper";
 import Map from "../components/Map";
 import {getAlerts} from "../database/Connector";
 
-export default function Home({local_alerts, global_alerts}) {
+export default function Home({local_alerts, global_alerts, jams}) {
     const render = (status) => {
         switch (status) {
             case Status.LOADING:
@@ -12,7 +12,7 @@ export default function Home({local_alerts, global_alerts}) {
             case Status.FAILURE:
                 return <h1>Error, please try again.</h1>;
             case Status.SUCCESS:
-                return <Map alerts={local_alerts}/>;
+                return <Map alerts={local_alerts} jams={jams}/>;
         }
     };
 
@@ -56,16 +56,39 @@ export async function getStaticProps() {
 
         return filtered_alerts;
     }
+    function GroupJams(jams) {
+        let grouped = {}
+        jams.forEach(jam => {
+            if (!grouped.hasOwnProperty(jam.street)) {
+                grouped[jam.street] = {type: jam.type, points:[]}
+            }
+            grouped[jam.street].points.push({lat: jam.lat, lng: jam.lng})
+        })
+
+        let filteredGrouped = []
+        for (const [key, value] of Object.entries(grouped)) {
+            if (value.points.length > 1) {
+                filteredGrouped.push(value);
+            }
+        }
+        return filteredGrouped;
+    }
 
     let res = await getAlerts();
     res = res.map(packet => {return {...packet}});
 
     let local_alerts = [];
+    let jams = [];
     let global_alerts = [];
 
     res.forEach(alert => {
         if (alert.type.toString()[0] === "1") {
-            local_alerts.push(alert);
+            if (alert.type.toString()[1] === "1") {
+                jams.push(alert)
+            }
+            else {
+                local_alerts.push(alert);
+            }
         }
         else {
             if (!global_alerts.includes(alert.type)) {
@@ -81,13 +104,16 @@ export async function getStaticProps() {
         local_alerts = RemoveCloseAlerts(local_alerts, i);
         i++;
     }
+
+    jams = GroupJams(jams);
+    console.log(jams);
     // console.log(local_alerts.length);
 
     // console.log(res)
 
     // Pass data to the page via props
     return {
-        props: { local_alerts: local_alerts },
+        props: { local_alerts: local_alerts, global_alerts: global_alerts, jams: jams },
         revalidate: 360, // In seconds
     }
 }
