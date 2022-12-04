@@ -8,6 +8,24 @@ const mysql = require('serverless-mysql')({
     }
 })
 
+export async function getDepartures(line, stop) {
+    if (!sanitizeNumber(line) || !sanitizeNumber(stop))
+        return null;
+
+    function convert(time) {
+        time = String(time)
+        return time.substring(0, time.length - 2) + ":" + time.substring(time.length - 2)
+    }
+
+    const now = new Date();
+    const num = now.getHours() * 100 + now.getMinutes()
+
+    const sql = "SELECT * FROM departures WHERE line_id=? AND stop_id=? AND time>? AND day=6 ORDER BY time ASC LIMIT 10"
+    const results = await mysql.query(sql, [line, stop, num])
+    await mysql.end()
+    return results.map(res => convert(res.time));
+}
+
 export async function getConnections() {
     const sql = "SELECT * FROM connections"
     const results = await mysql.query(sql)

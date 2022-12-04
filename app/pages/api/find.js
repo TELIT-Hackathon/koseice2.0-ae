@@ -1,4 +1,4 @@
-import {getConnection, getStop} from "../../database/Connector";
+import {getConnection, getDepartures, getStop} from "../../database/Connector";
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -32,7 +32,6 @@ export default async function Vehicles(req, res) {
         stop: stop.length > 0 ? stop[0] : undefined,
         destination: destination.length > 0 ? destination[0] : undefined,
         line: line.length > 0 ? line[0] : undefined,
-        next: departures,
-        diff: diff
+        next: await getDepartures(req.body.line, req.body.stop),
     });
 }
