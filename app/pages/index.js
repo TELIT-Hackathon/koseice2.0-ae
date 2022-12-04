@@ -55,7 +55,7 @@ export async function getStaticProps() {
             }
             i++;
         }
-        return groups; 
+        return groups;
     }
 
     let res = await getAlerts();
