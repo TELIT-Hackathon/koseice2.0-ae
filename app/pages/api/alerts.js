@@ -10,5 +10,10 @@ export default async function Alerts(req, res) {
         return;
     }
 
-    res.status(200).json(await getAlerts());
+    if (req.body.history !== undefined) {
+      res.status(200).json(await getAlerts(req.body.history));
+    }
+    else {
+      res.status(200).json(await getAlerts());
+    }
 }

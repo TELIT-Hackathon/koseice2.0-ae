@@ -71,9 +71,9 @@ export async function getReport() {
     return results[0];
 }
 
-export async function getAlerts() {
+export async function getAlerts(range= 86400) {
     const sql = "SELECT type,lat,lng,street FROM road_alerts WHERE time>?"
-    const results = await mysql.query(sql, [1661212800])
+    const results = await mysql.query(sql, [1661212800+86400-range])
     await mysql.end()
     return results;
 }
