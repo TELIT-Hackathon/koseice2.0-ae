@@ -22,8 +22,6 @@ export default function Map({center, zoom, vehicles, alerts}) {
         })
     }
 
-    const ref = useRef();
-
     useEffect(() => {
         update();
     });
