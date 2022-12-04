@@ -10,9 +10,5 @@ export default async function Alerts(req, res) {
         return;
     }
 
-    if (data === undefined) {
-        data = await getAlerts();
-    }
-
-    res.status(200).json(data);
+    res.status(200).json(await getAlerts());
 }
