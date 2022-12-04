@@ -16,6 +16,13 @@
     bottom: -30px;
 }
 
+.reportButton {
+    position: absolute;
+    left: 10px;
+    bottom: 70px;
+    z-index: 50;
+}
+
 .toggleBox {
     height: 59px;
     width: 100%;

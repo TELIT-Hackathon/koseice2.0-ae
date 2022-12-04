@@ -15,7 +15,7 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
             anchor: new google.maps.Point(0, 0) // anchor
         };
         let include_s = ""
-        if (alert.occurrences != 1) {
+        if (alert.occurrences !== 1) {
             include_s = "s"
         }
 
@@ -80,7 +80,7 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
     return <div>
         <header className={styles.searchBox}>
             <div className={styles.searchInner}>
-                <input type={"text"} ref={destinationRef} className={styles.searchBar} />
+                <input type={"text"} ref={destinationRef} className={styles.searchBar} placeholder={"Hľadať adresu..."} />
                 <MagnifyingGlassIcon className={styles.searchIcon} onClick={update} />
             </div>
         </header>

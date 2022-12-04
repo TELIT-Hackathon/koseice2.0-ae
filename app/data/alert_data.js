@@ -4,6 +4,7 @@ export const type_names = {
     "13": "HAZARD ON ROAD",
     "14": "ACCIDENT",
     "15": "CLOSED ROAD",
+    "16": "DIFFICULT WEATHER",
 
     "21": "ICE",
     "22": "SNOW",
@@ -38,4 +39,63 @@ export const available_severities = {
     "HAIL": ["0"],
     "FOG": ["0"],
     "FLOODS": ["0"],
+}
+
+export const severity_descriptions = {
+    "111": {
+        name: "Mild",
+        color: "#F07D02"
+    },
+    "112": {
+        name: "Heavy",
+        color: "#E60000"
+    },
+    "113": {
+        name: "Severe",
+        color: "#9E1313"
+    },
+    "121": {
+        name: "Heavy",
+        color: "#E60000"
+    },
+    "131": {
+        name: "Mild",
+        color: "#F07D02"
+    },
+    "132": {
+        name: "Heavy",
+        color: "#E60000"
+    },
+    "142": {
+        name: "Heavy",
+        color: "#E60000"
+    },
+    "143": {
+        name: "Severe",
+        color: "#9E1313"
+    },
+    "153": {
+        name: "Severe",
+        color: "#9E1313"
+    },
+    "210": {
+        name: "Ice",
+        color: "#000000"
+    },
+    "220": {
+        name: "Snow",
+        color: "#000000"
+    },
+    "230": {
+        name: "Hail",
+        color: "#000000"
+    },
+    "240": {
+        name: "Fog",
+        color: "#000000"
+    },
+    "250": {
+        name: "Flood",
+        color: "#000000"
+    }
 }
