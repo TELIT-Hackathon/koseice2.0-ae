@@ -51,6 +51,14 @@
   width: 24px;
 }
 
+.leafIcon {
+  position: absolute;
+  right: 0;
+  margin: 15px;
+  height: 32px;
+  width: 32px;
+}
+
 .main {
   min-height: 100vh;
   padding: 4rem 0;

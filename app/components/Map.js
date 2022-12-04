@@ -2,6 +2,8 @@ import {useEffect, useRef} from "react";
 import styles from "../styles/Home.module.css";
 import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
 import {type_names} from "../data/alert_data";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Map({center, zoom, vehicles, alerts, jams}) {
     const ref = useRef(), destinationRef = useRef();
@@ -100,6 +102,7 @@ export default function Map({center, zoom, vehicles, alerts, jams}) {
             <div className={styles.searchInner}>
                 <input type={"text"} ref={destinationRef} className={styles.searchBar} placeholder={"Hľadať adresu..."} />
                 <MagnifyingGlassIcon className={styles.searchIcon} onClick={update} />
+                <Link href={"/green"}><Image src={"/greenslides/leafbtn.png"} height={32} width={32} className={styles.leafIcon} alt={"Leaf icon"} /></Link>
             </div>
         </header>
         <div ref={ref} id="map" style={{
