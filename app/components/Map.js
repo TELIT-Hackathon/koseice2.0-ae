@@ -9,7 +9,8 @@ export default function Map({center, zoom}) {
 
         const map = new window.google.maps.Map(ref.current, {
             center: { lat: 48.7150835, lng: 21.2470718 },
-            zoom: 15
+            zoom: 15,
+            disableDefaultUI: true
         });
         directionsRenderer.setMap(map);
 

@@ -2,6 +2,9 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import {Status, Wrapper} from "@googlemaps/react-wrapper";
 import Map from "../components/Map";
+import {MagnifyingGlassIcon} from "@heroicons/react/24/outline";
+import {useState} from "react";
+import MainMenu from "../components/MainMenu";
 
 export default function Home() {
     const render = (status) => {
@@ -23,9 +26,18 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
+            <header className={styles.searchBox}>
+                <div className={styles.searchInner}>
+                    <input type={"text"} className={styles.searchBar} />
+                    <MagnifyingGlassIcon className={styles.searchIcon} />
+                </div>
+            </header>
+
             <main>
                 <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY} render={render} />
             </main>
+
+            <MainMenu />
         </div>
     )
 }

@@ -22,8 +22,12 @@ export async function getStops() {
     return results;
 }
 
+function sanitizeNumber(num) {
+    return num && !isNaN(num) && num > 0;
+}
+
 export async function getStop(id) {
-    if (!id || isNaN(id) || id < 0)
+    if (!sanitizeNumber(id))
         return null;
 
     const sql = "SELECT * FROM stops WHERE id=?"
@@ -37,4 +41,14 @@ export async function getAlerts() {
     const results = await mysql.query(sql, [1661212800])
     await mysql.end()
     return results;
+}
+
+export async function addRecord(stop, connection, destination) {
+    if (!sanitizeNumber(stop) || !sanitizeNumber(connection) || !sanitizeNumber(destination))
+        return false;
+
+    const sql = "INSERT INTO traffic_records(time, stop_id, line_id, destination_id) VALUES (NOW(), ?, ?, ?)"
+    await mysql.query(sql, [stop, connection, destination]);
+    await mysql.end()
+    return true;
 }

@@ -9,7 +9,6 @@ export default async function Stop(req, res) {
     }
 
     const stop = await getStop(req.body.stop)
-    console.log(stop)
 
     if (stop === null) {
         res.status(400).json({
